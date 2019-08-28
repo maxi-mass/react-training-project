@@ -1,5 +1,5 @@
 export let store  = {
-    rerenderEntireTree: () => {},
+    _callSubscriber(){},
     _state: {
         profilePage : {
             posts : [
@@ -32,38 +32,37 @@ export let store  = {
             newMessageText: ""
         }
     },
-    addPost: () => {
+    getState() {
+        return this._state;
+    },
+    addPost() {
         let newPost = {
             id : 5,
-            message: store._state.profilePage.newPostText,
+            message: this._state.profilePage.newPostText,
             likeCount: 0
         };
-        store._state.profilePage.posts.push(newPost);
-        store._state.profilePage.newPostText = "";
-        store.rerenderEntireTree(store);
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostText = "";
+        this._callSubscriber(this);
     },
-
-    changeNewPostText: (changedNewPostText) => {
-        store._state.profilePage.newPostText = changedNewPostText;
-        store.rerenderEntireTree(store);
+    changeNewPostText(changedNewPostText) {
+        this._state.profilePage.newPostText = changedNewPostText;
+        this._callSubscriber(this);
     },
-
-    addMessage: () => {
+    addMessage() {
         let newMessageItem = {
-            id: store._state.messagesPage.currentMessageId++,
-            message: store._state.messagesPage.newMessageText
+            id: this._state.messagesPage.currentMessageId++,
+            message: this._state.messagesPage.newMessageText
         };
-        store._state.messagesPage.messages.push(newMessageItem);
-        store._state.messagesPage.newMessageText = "";
-        store.rerenderEntireTree(store);
+        this._state.messagesPage.messages.push(newMessageItem);
+        this._state.messagesPage.newMessageText = "";
+        this._callSubscriber(this);
     },
-
     changeNewMessageText: (changedNewMessageText) => {
-        store._state.messagesPage.newMessageText = changedNewMessageText;
-        store.rerenderEntireTree(store);
+        this._state.messagesPage.newMessageText = changedNewMessageText;
+        this._callSubscriber(this);
     },
-
-    subscribe: (observer) => {
-        store.rerenderEntireTree = observer;
+    subscribe(observer) {
+        this._callSubscriber = observer;
     }
 };

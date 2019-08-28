@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header/Header';
 import {BrowserRouter, Route} from 'react-router-dom';
@@ -19,16 +18,16 @@ const App = (props) => {
                 <div className="app-wrapper-content">
                     <Route path="/settings" component={Settings} />
                     <Route path="/profile" render={() => {
-                        return <Profile profilePage={props.store._state.profilePage}
-                                        addPost={props.store.addPost}
-                                        changeNewPostText={props.store.changeNewPostText}
+                        return <Profile profilePage={props.state.profilePage}
+                                        addPost={props.addPost}
+                                        changeNewPostText={props.changeNewPostText}
                         />
                     }} />
                     <Route path="/dialogs" render={() => {
                         return <Dialogs
-                            messagesPage={props.store._state.messagesPage}
-                            addMessage={props.store.addMessage}
-                            changeNewMessageText={props.store.changeNewMessageText}
+                            messagesPage={props.state.messagesPage}
+                            addMessage={props.addMessage}
+                            changeNewMessageText={props.changeNewMessageText}
                         />;
                     }}/>
                     <Route path="/news" component={News} />
