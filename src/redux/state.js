@@ -1,5 +1,4 @@
 export let store  = {
-    _callSubscriber(){},
     _state: {
         profilePage : {
             posts : [
@@ -32,37 +31,39 @@ export let store  = {
             newMessageText: ""
         }
     },
+    _callSubscriber(){},
+
     getState() {
         return this._state;
     },
-    addPost() {
-        let newPost = {
-            id : 5,
-            message: this._state.profilePage.newPostText,
-            likeCount: 0
-        };
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = "";
-        this._callSubscriber(this);
-    },
-    changeNewPostText(changedNewPostText) {
-        this._state.profilePage.newPostText = changedNewPostText;
-        this._callSubscriber(this);
-    },
-    addMessage() {
-        let newMessageItem = {
-            id: this._state.messagesPage.currentMessageId++,
-            message: this._state.messagesPage.newMessageText
-        };
-        this._state.messagesPage.messages.push(newMessageItem);
-        this._state.messagesPage.newMessageText = "";
-        this._callSubscriber(this);
-    },
-    changeNewMessageText: (changedNewMessageText) => {
-        this._state.messagesPage.newMessageText = changedNewMessageText;
-        this._callSubscriber(this);
-    },
     subscribe(observer) {
         this._callSubscriber = observer;
+    },
+
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            let newPost = {
+                id : 5,
+                message: this._state.profilePage.newPostText,
+                likeCount: 0
+            };
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = "";
+            this._callSubscriber(this);
+        } else if (action.type === 'CHANGE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.changedNewPostText;
+            this._callSubscriber(this);
+        } else if (action.type === 'ADD-MESSAGE') {
+            let newMessageItem = {
+                id: this._state.messagesPage.currentMessageId++,
+                message: this._state.messagesPage.newMessageText
+            };
+            this._state.messagesPage.messages.push(newMessageItem);
+            this._state.messagesPage.newMessageText = "";
+            this._callSubscriber(this);
+        } else if (action.type === 'CHANGE-NEW-MESSAGE-TEXT') {
+            this._state.messagesPage.newMessageText = action.changedNewMessageText;
+            this._callSubscriber(this);
+        }
     }
 };

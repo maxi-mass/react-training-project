@@ -10,12 +10,14 @@ const Dialogs = (props) => {
     let messagesElements = props.messagesPage.messages.map(item => <MessageItem id={item.id} messageText={item.message} />);
     let newMessageElement = React.createRef();
     let addMessage = () => {
-        props.addMessage();
-        //newMessageElement.current.value = "";
+        props.dispatch({type: 'ADD-MESSAGE'});
     };
     let onNewMessageChange = () => {
         let newMessageText = newMessageElement.current.value;
-        props.changeNewMessageText(newMessageText);
+        props.dispatch({
+            type: 'CHANGE-NEW-MESSAGE-TEXT',
+            changedNewMessageText: newMessageText
+        });
     };
 
     return (
