@@ -9,6 +9,7 @@ let rerenderEntireTree = (store) => {
     ReactDOM.render(<App
         state={store.getState()}
         dispatch={store.dispatch.bind(store)}
+        store={store}
     />, document.getElementById('root'));
 };
 rerenderEntireTree(store);
