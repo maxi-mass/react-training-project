@@ -3,9 +3,7 @@ import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 
 const mapStateToProps = state => ({
-    dialogs: state.messagesPage.dialogs,
-    messages: state.messagesPage.messages,
-    newMessageText: state.messagesPage.newMessageText
+    messagesPage: state.messagesPage,
 });
 
 const mapDispatchToProps = dispatch => ({
