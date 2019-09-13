@@ -8,12 +8,14 @@ const SHOW_MORE_USERS = 'SHOW-MORE-USERS';
 const SET_USERS = 'SET-USERS';
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
+const SET_IS_FETCHING = 'SET-IS-FETCHING';
 
 let initialState = {
     users: [],
     totalUsersCount: 20,
     pageSize: 50,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 };
 
 export const usersReducer = (state = initialState, action) => {
@@ -55,6 +57,11 @@ export const usersReducer = (state = initialState, action) => {
                 ...state,
                 currentPage: action.currentPage
             };
+        case SET_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.isFetching
+            };
         default:
             return state;
     }
@@ -75,4 +82,5 @@ export const setTotalUsersCountAC = totalUsersCount => ({
 export const setCurrentPageAC = currentPage => ({
     type: SET_CURRENT_PAGE, currentPage: currentPage
 });
+export const setIsFetchingAC = isFetching => ({type: SET_IS_FETCHING, isFetching});
 
