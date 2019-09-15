@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Users.module.css';
 import defaultAvatar from "../../assets/images/default-avatar.jpg";
+import {NavLink} from "react-router-dom";
 
 const Users = (props) => {
     let pagesItems = () => {
@@ -28,7 +29,9 @@ const Users = (props) => {
                     return <div key={user.id} className={styles.userItem}>
                     <span>
                         <div>
-                            <img src={user.photos.small ? user.photos.small : defaultAvatar} alt="avatar"/>
+                            <NavLink to={'/profile/' + user.id}>
+                                <img src={user.photos.small ? user.photos.small : defaultAvatar} alt="avatar"/>
+                            </NavLink>
                         </div>
                         <div>
                             {
