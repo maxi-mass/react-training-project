@@ -68,19 +68,15 @@ export const usersReducer = (state = initialState, action) => {
 };
 
 export const addUser = () => ({type: ADD_USER});
-export const updateUser = userId => ({type: UPDATE_USER, userId: userId});
-export const deleteUser = userId => ({type: DELETE_USER, userId: userId});
-export const viewUser = userId => ({type: VIEW_USER, userId: userId});
-export const followUser = userId => ({type: FOLLOW_USER, userId: userId});
-export const unFollowUser = userId => ({type: UN_FOLLOW_USER, userId: userId});
+export const updateUser = userId => ({type: UPDATE_USER, userId});
+export const deleteUser = userId => ({type: DELETE_USER, userId});
+export const viewUser = userId => ({type: VIEW_USER, userId});
+export const followUser = userId => ({type: FOLLOW_USER, userId});
+export const unFollowUser = userId => ({type: UN_FOLLOW_USER, userId});
 export const showMoreUsers = currentPage => ({type: SHOW_MORE_USERS, currentPage: currentPage});
-export const setUsers = users => ({type: SET_USERS, users: users});
-export const s1etUsers = users => ({type: SET_USERS, users: users});
-export const setTotalUsersCount = totalUsersCount => ({
-    type: SET_TOTAL_USERS_COUNT, totalUsersCount: totalUsersCount
-});
-export const setCurrentPage = currentPage => ({
-    type: SET_CURRENT_PAGE, currentPage: currentPage
-});
+export const setUsers = users => ({type: SET_USERS, users});
+export const s1etUsers = users => ({type: SET_USERS, users});
+export const setTotalUsersCount = totalUsersCount => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
+export const setCurrentPage = currentPage => ({type: SET_CURRENT_PAGE, currentPage});
 export const setIsFetching = isFetching => ({type: SET_IS_FETCHING, isFetching});
 

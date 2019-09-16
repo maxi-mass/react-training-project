@@ -16,7 +16,12 @@ class UsersContainer extends React.Component {
     componentDidMount = () => {
         this.props.setIsFetching(true);
         axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+                withCredentials: true,
+                headers: {
+                    "API-KEY" : "97771d01-b7c4-41cb-8ae9-e52b1b7430fa"
+                }
+            })
             .then(response => {
                 this.props.setUsers(response.data.items);
                 this.props.setTotalUsersCount(response.data.totalCount);
@@ -28,7 +33,12 @@ class UsersContainer extends React.Component {
         this.props.setCurrentPage(pageNumber);
         this.props.setIsFetching(true);
         axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
+                withCredentials: true,
+                headers: {
+                    "API-KEY" : "97771d01-b7c4-41cb-8ae9-e52b1b7430fa"
+                }
+            })
             .then(response => {
                 this.props.setUsers(response.data.items);
                 this.props.setIsFetching(false);
