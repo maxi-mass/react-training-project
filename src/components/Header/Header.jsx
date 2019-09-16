@@ -1,12 +1,19 @@
 import React from 'react';
 import h from './Header.module.css';
+import {NavLink} from "react-router-dom";
 
-const Header = () => {
+const Header = (props) => {
     return (
     <header className={h.header}>
-        <img src="https://bcassetcdn.com/asset/logo/e33c12b4-1128-4129-b31f-2c31cb0878c7/logo?v=4&text=Logo+Text+Here" />
+        <img
+            alt='header'
+            src="https://bcassetcdn.com/asset/logo/e33c12b4-1128-4129-b31f-2c31cb0878c7/logo?v=4&text=Logo+Text+Here"
+        />
+        <div className={h.loginBlock}>
+            {props.isAuth ? props.login : <NavLink to={'/login'}>Login</NavLink>}
+        </div>
     </header>
     );
-}
+};
 
 export default Header;
