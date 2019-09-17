@@ -1,34 +1,38 @@
 import * as axios from "axios";
 
-export const getUsers = ({currentPage, pageSize}) => {
-    return axios
-        .get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`, {
-            withCredentials: true,
-        }).then(response => response.data);
-};
+const API_BASE_URL = 'https://social-network.samuraijs.com/api/1.0';
+const axiosInstance = axios.create({
+    baseURL: 'https://social-network.samuraijs.com/api/1.0',
+    withCredentials: true,
+    headers: {
+        "API-KEY" : "97771d01-b7c4-41cb-8ae9-e52b1b7430fa"
+    }
+});
 
-export const getProfile = userId => {
-    return  axios
-        .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+export const usersAPI = {
+    auth: () => {
+        return axiosInstance
+        .get(`/auth/me`)
         .then(response => response.data);
-};
-
-export const followUser = userId => {
-    return axios
-        .post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {}, {
-            withCredentials: true,
-            headers: {
-                "API-KEY" : "97771d01-b7c4-41cb-8ae9-e52b1b7430fa"
-            }
-        }).then(response => response.data);
-};
-
-export const unFollowUser = userId => {
-    return axios
-        .delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
-            withCredentials: true,
-            headers: {
-                "API-KEY" : "97771d01-b7c4-41cb-8ae9-e52b1b7430fa"
-            }
-        }).then(response => response.data);
+    },
+    getUsers: ({currentPage, pageSize}) => {
+        return axiosInstance
+            .get(`/users?page=${currentPage}&count=${pageSize}`)
+            .then(response => response.data);
+    },
+    getProfile: (userId) => {
+        return  axiosInstance
+            .get(`/profile/${userId}`)
+            .then(response => response.data);
+    },
+    followUser: userId => {
+        return axiosInstance
+            .post(`/follow/${userId}`)
+            .then(response => response.data);
+    },
+    unFollowUser: userId => {
+        return axiosInstance
+            .delete(`/follow/${userId}`)
+            .then(response => response.data);
+    }
 };

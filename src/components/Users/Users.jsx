@@ -3,8 +3,7 @@ import styles from './Users.module.css';
 import defaultAvatar from "../../assets/images/default-avatar.jpg";
 import {NavLink} from "react-router-dom";
 import * as axios from "axios";
-import {unFollowUser} from "../../api/api";
-import {followUser} from "../../api/api";
+import {usersAPI} from "../../api/api";
 
 const Users = (props) => {
     let pagesItems = () => {
@@ -41,7 +40,7 @@ const Users = (props) => {
                             {
                                 user.followed ?
                                     <button onClick={() => {
-                                        unFollowUser(user.id).then(response => {
+                                        usersAPI.unFollowUser(user.id).then(response => {
                                             if (response.resultCode === 0) {
                                                 props.unFollowUser(user.id);
                                             }
@@ -49,7 +48,7 @@ const Users = (props) => {
                                     }}>UnFollow</button>
                                     :
                                     <button onClick={() => {
-                                        followUser(user.id).then(response => {
+                                        usersAPI.followUser(user.id).then(response => {
                                             if (response.resultCode === 0) {
                                                 props.followUser(user.id);
                                             }
