@@ -16,6 +16,7 @@ const Users = (props) => {
 
         return pages.map(page => {
             return <span
+                key={page}
                 onClick={() => props.onPageChanged(page)}
                 className={(props.currentPage === page) ? styles.selectedPage: styles.pageNumber }
             >{page}</span>
@@ -46,11 +47,10 @@ const Users = (props) => {
                                             }
                                         })
                                         .then(response => {
-                                            if (response.data.statusCode === 0) {
-                                                props.followUser(user.id);
+                                            if (response.data.resultCode === 0) {
+                                                props.unFollowUser(user.id);
                                             }
-                                        }); 
-                                        props.unFollowUser(user.id)
+                                        });
                                     }}>UnFollow</button>
                                     :
                                     <button onClick={() => {
@@ -62,8 +62,7 @@ const Users = (props) => {
                                             }
                                         })
                                         .then(response => {
-                                            console.log(response);
-                                            if (response.data.statusCode === 0) {
+                                            if (response.data.resultCode === 0) {
                                                 props.followUser(user.id);
                                             }
                                         }); 
