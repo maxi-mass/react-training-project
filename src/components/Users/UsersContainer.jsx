@@ -7,42 +7,34 @@ import {
     unFollowUser
 } from "../../redux/users-reducer";
 import {connect} from "react-redux";
-import * as axios from "axios";
 import React from "react";
 import Users from "./Users";
 import Preloader from "../common/preloader/Preloader";
+import {getUsers} from '../../api/api';
 
 class UsersContainer extends React.Component {
     componentDidMount = () => {
         this.props.setIsFetching(true);
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-                withCredentials: true,
-                headers: {
-                    "API-KEY" : "97771d01-b7c4-41cb-8ae9-e52b1b7430fa"
-                }
-            })
-            .then(response => {
-                this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.totalCount);
-                this.props.setIsFetching(false);
-            });
+        getUsers({
+            currentPage:this.props.currentPage,
+            pageSize: this.props.pageSize
+        }).then(response => {
+            this.props.setUsers(response.items);
+            this.props.setTotalUsersCount(response.totalCount);
+            this.props.setIsFetching(false);
+        });
     };
 
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
         this.props.setIsFetching(true);
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
-                withCredentials: true,
-                headers: {
-                    "API-KEY" : "97771d01-b7c4-41cb-8ae9-e52b1b7430fa"
-                }
-            })
-            .then(response => {
-                this.props.setUsers(response.data.items);
-                this.props.setIsFetching(false);
-            });
+        getUsers({
+            currentPage: pageNumber,
+            pageSize: this.props.pageSize
+        }).then(response => {
+            this.props.setUsers(response.items);
+            this.props.setIsFetching(false);
+        });
     };
 
     render = () => <>
