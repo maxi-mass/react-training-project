@@ -1,6 +1,6 @@
 import {
     followUser,
-    setCurrentPage,
+    setCurrentPage, setFollowingInProgress,
     setIsFetching,
     setTotalUsersCount,
     setUsers,
@@ -47,6 +47,8 @@ class UsersContainer extends React.Component {
             unFollowUser={this.props.unFollowUser}
             followUser={this.props.followUser}
             onPageChanged={this.onPageChanged}
+            setFollowingInProgress={this.props.setFollowingInProgress}
+            followingInProgress={this.props.followingInProgress}
         />
     </>
 }
@@ -56,10 +58,9 @@ const mapStateToProps = state => ({
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching
+    isFetching: state.usersPage.isFetching,
+    followingInProgress: state.usersPage.followingInProgress
 });
-
-
 
 export default connect(mapStateToProps, {
     followUser,
@@ -67,6 +68,7 @@ export default connect(mapStateToProps, {
     setUsers,
     setTotalUsersCount,
     setCurrentPage,
-    setIsFetching
+    setIsFetching,
+    setFollowingInProgress
 })(UsersContainer);
 

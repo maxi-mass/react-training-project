@@ -1,21 +1,18 @@
-const ADD_USER = "ADD-USER";
-const DELETE_USER = "DELETE-USER";
-const UPDATE_USER = "UPDATE-USER";
-const VIEW_USER = "VIEW-USER";
 const FOLLOW_USER = 'FOLLOW-USER';
 const UN_FOLLOW_USER = 'UN-FOLLOW-USER';
-const SHOW_MORE_USERS = 'SHOW-MORE-USERS';
 const SET_USERS = 'SET-USERS';
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
 const SET_IS_FETCHING = 'SET-IS-FETCHING';
+const SET_FOLLOWING_IN_PROGRESS = 'SET-FOLLOWING-IN-PROGRESS';
 
 let initialState = {
     users: [],
     totalUsersCount: 20,
     pageSize: 50,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: {userId: null, isFetching: false}
 };
 
 export const usersReducer = (state = initialState, action) => {
@@ -62,21 +59,23 @@ export const usersReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching
             };
+        case SET_FOLLOWING_IN_PROGRESS:
+            return {
+                ...state,
+                followingInProgress: {
+                    userId: action.userId,
+                    isFetching: action.isFetching
+                }
+            };
         default:
             return state;
     }
 };
 
-export const addUser = () => ({type: ADD_USER});
-export const updateUser = userId => ({type: UPDATE_USER, userId});
-export const deleteUser = userId => ({type: DELETE_USER, userId});
-export const viewUser = userId => ({type: VIEW_USER, userId});
 export const followUser = userId => ({type: FOLLOW_USER, userId});
 export const unFollowUser = userId => ({type: UN_FOLLOW_USER, userId});
-export const showMoreUsers = currentPage => ({type: SHOW_MORE_USERS, currentPage: currentPage});
 export const setUsers = users => ({type: SET_USERS, users});
-export const s1etUsers = users => ({type: SET_USERS, users});
 export const setTotalUsersCount = totalUsersCount => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
 export const setCurrentPage = currentPage => ({type: SET_CURRENT_PAGE, currentPage});
 export const setIsFetching = isFetching => ({type: SET_IS_FETCHING, isFetching});
-
+export const setFollowingInProgress = ({userId, isFetching}) => ({type: SET_FOLLOWING_IN_PROGRESS, userId, isFetching});

@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './Users.module.css';
 import defaultAvatar from "../../assets/images/default-avatar.jpg";
 import {NavLink} from "react-router-dom";
-import * as axios from "axios";
 import {usersAPI} from "../../api/api";
 
 const Users = (props) => {
@@ -39,19 +38,39 @@ const Users = (props) => {
                         <div>
                             {
                                 user.followed ?
-                                    <button onClick={() => {
+                                    <button
+                                        disabled={props.followingInProgress.isFetching && user.id===props.followingInProgress.userId}
+                                        onClick={() => {
+                                        props.setFollowingInProgress({
+                                            userId: user.id,
+                                            isFetching: true
+                                        });
                                         usersAPI.unFollowUser(user.id).then(response => {
                                             if (response.resultCode === 0) {
                                                 props.unFollowUser(user.id);
                                             }
+                                            props.setFollowingInProgress({
+                                                userId: user.id,
+                                                isFetching: false
+                                            });
                                         });
                                     }}>UnFollow</button>
                                     :
-                                    <button onClick={() => {
+                                    <button
+                                        disabled={props.followingInProgress.isFetching && user.id===props.followingInProgress.userId}
+                                        onClick={() => {
+                                        props.setFollowingInProgress({
+                                            userId: user.id,
+                                            isFetching: true
+                                        });
                                         usersAPI.followUser(user.id).then(response => {
                                             if (response.resultCode === 0) {
                                                 props.followUser(user.id);
                                             }
+                                            props.setFollowingInProgress({
+                                                userId: user.id,
+                                                isFetching: false
+                                            });
                                         }); 
                                     }}>Follow</button>
                             }
