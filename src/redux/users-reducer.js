@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 const FOLLOW_USER = 'FOLLOW-USER';
 const UN_FOLLOW_USER = 'UN-FOLLOW-USER';
 const SET_USERS = 'SET-USERS';
@@ -71,6 +73,18 @@ export const usersReducer = (state = initialState, action) => {
             return state;
     }
 };
+
+export const getUsersThunkCreator = ({currentPage, pageSize}) => {
+    return dispatch => {
+        dispatch(setIsFetching(true));
+        usersAPI.getUsers({currentPage, pageSize}).then(response => {
+            dispatch(setUsers(response.items));
+            dispatch(setTotalUsersCount(response.totalCount));
+            dispatch(setIsFetching(false));
+        });
+    };
+};
+
 
 export const followUser = userId => ({type: FOLLOW_USER, userId});
 export const unFollowUser = userId => ({type: UN_FOLLOW_USER, userId});

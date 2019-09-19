@@ -1,5 +1,5 @@
 import {
-    followUser,
+    followUser, getUsersThunkCreator,
     setCurrentPage, setFollowingInProgress,
     setIsFetching,
     setTotalUsersCount,
@@ -14,14 +14,9 @@ import {usersAPI} from '../../api/api';
 
 class UsersContainer extends React.Component {
     componentDidMount = () => {
-        this.props.setIsFetching(true);
-        usersAPI.getUsers({
-            currentPage:this.props.currentPage,
+        this.props.getUsersThunkCreator({
+            currentPage: this.props.currentPage,
             pageSize: this.props.pageSize
-        }).then(response => {
-            this.props.setUsers(response.items);
-            this.props.setTotalUsersCount(response.totalCount);
-            this.props.setIsFetching(false);
         });
     };
 
@@ -61,14 +56,53 @@ const mapStateToProps = state => ({
     isFetching: state.usersPage.isFetching,
     followingInProgress: state.usersPage.followingInProgress
 });
+const mapDispatchToProps = dispatch => ({
+        getUsersThunkCreator: ({currentPage, pageSize}) => {
+            dispatch(setIsFetching(true));
+            usersAPI.getUsers({currentPage, pageSize}).then(response => {
+                dispatch(setUsers(response.items));
+                dispatch(setTotalUsersCount(response.totalCount));
+                dispatch(setIsFetching(false));
+            });
+        },
+        setIsFetching: isFetching => {
+            dispatch(setIsFetching(isFetching));
+        }
+});
+/*    debugger
+    return {
 
-export default connect(mapStateToProps, {
+        getUsersThunkCreator: ({currentPage, pageSize}) => {
+            return () => {
+                dispatch(setIsFetching(true));
+                usersAPI.getUsers({currentPage, pageSize}).then(response => {
+                    dispatch(setUsers(response.items));
+                    dispatch(setTotalUsersCount(response.totalCount));
+                    dispatch(setIsFetching(false));
+                });
+            };
+        }
+    }*/
+
+/*export default connect(mapStateToProps, {
     followUser,
     unFollowUser,
     setUsers,
     setTotalUsersCount,
     setCurrentPage,
     setIsFetching,
-    setFollowingInProgress
-})(UsersContainer);
-
+    setFollowingInProgress,
+    getUsersThunkCreator: (dispatch) => {
+        return ({currentPage, pageSize}) => {
+            return () => {
+                dispatch(setIsFetching(true));
+                usersAPI.getUsers({currentPage, pageSize}).then(response => {
+                    dispatch(setUsers(response.items));
+                    dispatch(setTotalUsersCount(response.totalCount));
+                    dispatch(setIsFetching(false));
+                });
+            };
+        }
+    }
+})(UsersContainer);*/
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
