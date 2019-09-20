@@ -40,39 +40,13 @@ const Users = (props) => {
                                 user.followed ?
                                     <button
                                         disabled={props.followingInProgress.isFetching && user.id===props.followingInProgress.userId}
-                                        onClick={() => {
-                                        props.setFollowingInProgress({
-                                            userId: user.id,
-                                            isFetching: true
-                                        });
-                                        usersAPI.unFollowUser(user.id).then(response => {
-                                            if (response.resultCode === 0) {
-                                                props.unFollowUser(user.id);
-                                            }
-                                            props.setFollowingInProgress({
-                                                userId: user.id,
-                                                isFetching: false
-                                            });
-                                        });
-                                    }}>UnFollow</button>
+                                        onClick={() => {props.unFollow(user.id);}}
+                                    >UnFollow</button>
                                     :
                                     <button
                                         disabled={props.followingInProgress.isFetching && user.id===props.followingInProgress.userId}
-                                        onClick={() => {
-                                        props.setFollowingInProgress({
-                                            userId: user.id,
-                                            isFetching: true
-                                        });
-                                        usersAPI.followUser(user.id).then(response => {
-                                            if (response.resultCode === 0) {
-                                                props.followUser(user.id);
-                                            }
-                                            props.setFollowingInProgress({
-                                                userId: user.id,
-                                                isFetching: false
-                                            });
-                                        }); 
-                                    }}>Follow</button>
+                                        onClick={() => {props.follow(user.id);}}
+                                    >Follow</button>
                             }
                         </div>
                     </span>
