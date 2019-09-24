@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import Settings from "./Settings";
 import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "react-redux";
 
 class SettingsContainer extends React.Component {
     render() {
@@ -9,6 +10,6 @@ class SettingsContainer extends React.Component {
     }
 }
 
-let withAuthRedirectSettingsContainer = WithAuthRedirect(SettingsContainer);
-const mapStateToProps = state => ({});
-export default connect(mapStateToProps, {})(withAuthRedirectSettingsContainer);
+export default compose(
+    WithAuthRedirect
+)(SettingsContainer);

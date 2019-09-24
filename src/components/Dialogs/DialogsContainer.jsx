@@ -2,11 +2,12 @@ import {addMessageActionCreator, onNewMessageChangeActionCreator} from "../../re
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
-
-let withAuthRedirectDialogs = WithAuthRedirect(Dialogs);
+import {compose} from "react-redux";
 
 const mapStateToProps = state => ({
     messagesPage: state.messagesPage
 });
-
-export default connect(mapStateToProps, {addMessageActionCreator, onNewMessageChangeActionCreator})(withAuthRedirectDialogs);
+export default compose(
+    connect(mapStateToProps, {addMessageActionCreator, onNewMessageChangeActionCreator}),
+    WithAuthRedirect
+)(Dialogs);
