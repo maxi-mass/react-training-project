@@ -9,13 +9,6 @@ class SettingsContainer extends React.Component {
     }
 }
 
-let withAuthRedirectComponent = WithAuthRedirect(SettingsContainer);
-const mapStateToPropsForRedirect = state => ({
-    isAuth: state.auth.isAuth
-});
-withAuthRedirectComponent = connect(mapStateToPropsForRedirect)(withAuthRedirectComponent);
-
+let withAuthRedirectSettingsContainer = WithAuthRedirect(SettingsContainer);
 const mapStateToProps = state => ({});
-
-export default connect(mapStateToProps, {})(withAuthRedirectComponent);
-
+export default connect(mapStateToProps, {})(withAuthRedirectSettingsContainer);
