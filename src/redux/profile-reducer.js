@@ -48,6 +48,14 @@ export const getUserProfile = userId => dispatch => {
     });
 };
 
+export const getStatus = userId => dispatch => {
+
+};
+
+export const setStatus = (userId, status) => dispatch => {
+    return usersAPI.setStatus(status)
+};
+
 export const addPostActionCreator = () => ({type: ADD_POST});
 export const onPostChangeActionCreator = newPostText =>  ({
     type: CHANGE_NEW_POST_TEXT,

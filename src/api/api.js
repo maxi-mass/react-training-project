@@ -33,5 +33,15 @@ export const usersAPI = {
         return axiosInstance
             .delete(`/follow/${userId}`)
             .then(response => response.data);
+    },
+    getStatus: userId => {
+        return axiosInstance
+            .get(`/profile/status/${userId}`)
+            .then(response => response.data);
+    },
+    setStatus: (status) => {
+        return axiosInstance
+            .put(`/profile/status`, {status})
+            .then(response => response.data);
     }
 };
