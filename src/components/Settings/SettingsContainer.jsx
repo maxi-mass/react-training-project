@@ -1,8 +1,7 @@
 import React from "react";
-import {connect} from "react-redux";
 import Settings from "./Settings";
 import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
-import {compose} from "react-redux";
+import {compose} from "redux";
 
 class SettingsContainer extends React.Component {
     render() {
