@@ -3,14 +3,16 @@ import {usersAPI} from "../../../api/api";
 
 class ProfileStatus extends React.Component {
     componentDidMount = () => {
-        this.setState({
-            newStatusText: this.props.status
-        })
-    }
+        usersAPI.getStatus(this.props.userId).then(status => {
+            this.setState({
+                currentStatusText: status
+            })
+        });
+    };
 
     state = {
         editMode: false,
-        newStatusText: ""
+        currentStatusText: ""
     };
 
     activateEditMode = () => {
@@ -23,16 +25,14 @@ class ProfileStatus extends React.Component {
         this.setState({
             editMode: false
         });
-        usersAPI.setStatus(this.state.newStatusText).then(response => {
-            console.log(response);
-        })
+        usersAPI.setStatus(this.state.currentStatusText);
     };
 
     onStatusChange = (event) => {
         this.setState({
-            newStatusText: event.target.value
+            currentStatusText: event.target.value
         })
-    }
+    };
     
     render = () => {
         return (
@@ -40,17 +40,17 @@ class ProfileStatus extends React.Component {
                 {
                     !this.state.editMode && <div>
                         <span onDoubleClick={this.activateEditMode}>
-                            {this.state.newStatusText}
+                            Статус: {this.state.currentStatusText}
                         </span>
                     </div>
                 }
                 {
                     this.state.editMode && <div>
-                        <input 
+                        Статус: <input
                             autoFocus={true}
                             onChange={this.onStatusChange} 
                             onBlur={this.deActivateEditMode} 
-                            value={this.state.newStatusText}
+                            value={this.state.currentStatusText}
                         />
                     </div>
                 }

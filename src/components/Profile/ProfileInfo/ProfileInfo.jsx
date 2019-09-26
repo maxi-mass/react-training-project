@@ -1,5 +1,5 @@
 import React from 'react';
-import p from './ProfileInfo.module.css';
+import profileInfoStyles from './ProfileInfo.module.css';
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatus from "./ProfileStatus";
 
@@ -12,9 +12,11 @@ const ProfileInfo = (props) => {
             <div>
 
             </div>
-            <div className={p.descriptionBlock}>
+            <div className={profileInfoStyles.descriptionBlock}>
                 <img src={props.userProfile.photos.large} />
-                <ProfileStatus status={"Hello world!!!"}/>
+                <ProfileStatus
+                    userId={props.userProfile.userId}
+                />
                 <div>
                     {props.userProfile.aboutMe}
                 </div>
