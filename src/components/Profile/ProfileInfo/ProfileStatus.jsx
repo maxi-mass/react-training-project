@@ -27,6 +27,14 @@ class ProfileStatus extends React.Component {
         });
         usersAPI.setStatus(this.state.currentStatusText);
     };
+    enterPress = (event) => {
+        if(event.charCode == 13) {
+            this.setState({
+                editMode: false
+            });
+            usersAPI.setStatus(this.state.currentStatusText);          
+        }
+    };
 
     onStatusChange = (event) => {
         this.setState({
@@ -49,7 +57,8 @@ class ProfileStatus extends React.Component {
                         Статус: <input
                             autoFocus={true}
                             onChange={this.onStatusChange} 
-                            onBlur={this.deActivateEditMode} 
+                            onBlur={this.deActivateEditMode}
+                            onKeyPress={this.enterPress} 
                             value={this.state.currentStatusText}
                         />
                     </div>
