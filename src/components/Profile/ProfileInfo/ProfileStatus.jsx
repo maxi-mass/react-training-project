@@ -2,21 +2,12 @@ import React from "react";
 import {profileAPI} from "../../../api/api";
 
 class ProfileStatus extends React.Component {
-    componentDidMount = () => {
-        profileAPI.getStatus(this.props.userId).then(status => {
-            this.setState({
-                currentStatusText: status
-            })
-        });
-    };
-
     state = {
         editMode: false,
-        currentStatusText: ""
+        currentStatusText: this.props.status
     };
 
     activateEditMode = () => {
-        console.log(this);
         this.setState({
             editMode: true
         })
@@ -26,14 +17,15 @@ class ProfileStatus extends React.Component {
         this.setState({
             editMode: false
         });
-        profileAPI.setStatus(this.state.currentStatusText);
+        this.props.updateProfileStatus(this.state.currentStatusText);    
     };
+
     enterPress = (event) => {
         if(event.charCode === 13) {
             this.setState({
                 editMode: false
             });
-            profileAPI.setStatus(this.state.currentStatusText);
+            this.props.updateProfileStatus(this.state.currentStatusText);    
         }
     };
 

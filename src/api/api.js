@@ -9,19 +9,9 @@ const axiosInstance = axios.create({
 });
 
 export const usersAPI = {
-    auth: () => {
-        return axiosInstance
-        .get(`/auth/me`)
-        .then(response => response.data);
-    },
     getUsers: ({currentPage, pageSize}) => {
         return axiosInstance
             .get(`/users?page=${currentPage}&count=${pageSize}`)
-            .then(response => response.data);
-    },
-    getProfile: (userId) => {
-        return  axiosInstance
-            .get(`/profile/${userId}`)
             .then(response => response.data);
     },
     followUser: userId => {
@@ -34,16 +24,6 @@ export const usersAPI = {
             .delete(`/follow/${userId}`)
             .then(response => response.data);
     },
-    getStatus: userId => {
-        return axiosInstance
-            .get(`/profile/status/${userId}`)
-            .then(response => response.data);
-    },
-    setStatus: (status) => {
-        return axiosInstance
-            .put(`/profile/status`, {status})
-            .then(response => response.data);
-    }
 };
 
 export const profileAPI = {
@@ -57,7 +37,7 @@ export const profileAPI = {
             .get(`/profile/status/${userId}`)
             .then(response => response.data);
     },
-    setStatus: (status) => {
+    updateStatus: (status) => {
         return axiosInstance
             .put(`/profile/status`, {status})
             .then(response => response.data);
