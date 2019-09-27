@@ -45,3 +45,29 @@ export const usersAPI = {
             .then(response => response.data);
     }
 };
+
+export const profileAPI = {
+    getProfile: (userId) => {
+        return  axiosInstance
+            .get(`/profile/${userId}`)
+            .then(response => response.data);
+    },
+    getStatus: userId => {
+        return axiosInstance
+            .get(`/profile/status/${userId}`)
+            .then(response => response.data);
+    },
+    setStatus: (status) => {
+        return axiosInstance
+            .put(`/profile/status`, {status})
+            .then(response => response.data);
+    }
+};
+
+export const authAPI = {
+    auth: () => {
+        return axiosInstance
+            .get(`/auth/me`)
+            .then(response => response.data);
+    }
+};
