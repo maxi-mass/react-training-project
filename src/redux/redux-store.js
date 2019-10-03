@@ -11,7 +11,16 @@ let reducers = combineReducers({
     messagesPage: messagesReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer.plugin({
+        myPosts: (state, action) => {
+            switch (action.type) {
+                case 'ADD-POST' : 
+                    return undefined;
+                default:
+                    return state;
+            }
+        },
+    })
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));
