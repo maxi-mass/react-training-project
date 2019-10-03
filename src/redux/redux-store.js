@@ -20,6 +20,14 @@ let reducers = combineReducers({
                     return state;
             }
         },
+        dialogs: (state, action) => {
+            switch (action.type) {
+                case 'ADD-MESSAGE' :
+                    return undefined;
+                default:
+                    return state;
+            }
+        }
     })
 });
 

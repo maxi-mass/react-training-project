@@ -49,5 +49,16 @@ export const authAPI = {
         return axiosInstance
             .get(`/auth/me`)
             .then(response => response.data);
+    },
+    login: loginData => {
+        return axiosInstance
+            .post('/auth/login', loginData)
+            .then(response => response.data);
+    },
+
+    logout: () => {
+        return axiosInstance
+            .delete('/auth/login')
+            .then(response => response.data);
     }
 };

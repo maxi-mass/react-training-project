@@ -30,6 +30,18 @@ export const loginUser = () => dispatch => {
     });
 };
 
+export const login = loginData => () => {
+    authAPI.login(loginData).then(data => {
+        console.log(data);
+    });
+};
+
+export const logout = () => () => {
+    authAPI.logout().then(data => {
+        console.log(data);
+    });
+};
+
 export const setUserData = (userId, email, login) => {
     return { type: SET_USER_DATA, userData: {userId, email, login}}
 };

@@ -7,7 +7,6 @@ let mapStateToProps = state => ({
     newPostText: state.profilePage.newPostText
 });
 
-
 const MyPostsContainer = connect(mapStateToProps, {addPost})(MyPosts);
 
 export default MyPostsContainer;
