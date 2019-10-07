@@ -18,7 +18,7 @@ const DialogsForm = (props) => {
             />
         </div>
         <div>
-            <button>AddMessage</button>
+            <button>AddMessage1</button>
         </div>
     </form>
 };
