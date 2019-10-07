@@ -14,7 +14,7 @@ const MyPostsForm = props => {
                     placeholder={"your post text"}
                     component={Textarea}
                     name={"postText"}
-                    validate={[ required, maxLength10]}
+                    validate={[required, maxLength10]}
                 />
             </div>
             <div>

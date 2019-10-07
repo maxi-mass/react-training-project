@@ -1,5 +1,7 @@
 .error input,
-.error textarea {
+.error textarea,
+.error input
+{
     border: 2px solid red;
 }
 .red {
