@@ -1,17 +1,12 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {loginUser, logout} from "../../redux/auth-reducer";
+import {logout} from "../../redux/auth-reducer";
 import Header from "./Header";
 
 class HeaderContainer extends React.Component {
-    componentDidMount = () => {
-        this.props.loginUser();
-    };
-
     render = () => <Header {...this.props} />;
 }
 const mapDispatchToProps = dispatch => ({
-    loginUser: () => dispatch(loginUser()),
     logout: () => dispatch(logout())
 });
 

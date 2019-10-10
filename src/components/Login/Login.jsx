@@ -5,9 +5,10 @@ import {login, logout} from "../../redux/auth-reducer";
 import {TextInput} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 import {Redirect} from "react-router-dom";
-import { authAPI } from "../../api/api";
+import formsConstrolsStyles from "../common/FormsControls/FormsControls.module.css";
 
 const LoginForm = (props) => {
+    console.log(props);
     return <form onSubmit={props.handleSubmit}>
                 <div>
                     <Field
@@ -28,6 +29,9 @@ const LoginForm = (props) => {
                 <div>
                     <Field type="checkbox" name={"rememberMe"} component={"input"} /> remember me
                 </div>
+                {props.error && <div className={formsConstrolsStyles.commonError}>
+                    ERROR
+                </div>}
                 <div>
                     <button>Login</button>
                 </div>
@@ -45,10 +49,6 @@ const Login = (props) => {
             rememberMe: formData.rememberMe
         });
     };
-
-    if (props.isAuth) {
-        return <Redirect to="/profile" />
-    }
 
     return (
         <div>

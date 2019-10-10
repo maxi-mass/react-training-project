@@ -1,4 +1,5 @@
 import {authAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = "SET-USER-DATA";
 
@@ -22,7 +23,7 @@ export const authReducer = (state = initialState, action) => {
 };
 
 export const loginUser = () => dispatch => {
-    authAPI.auth().then(response => {
+    return authAPI.auth().then(response => {
         if (response.resultCode === 0) {
             let {id, email, login} = response.data;
             dispatch(setUserData(id, email, login, true));
@@ -34,7 +35,13 @@ export const login = loginData => dispatch => {
     authAPI.login(loginData).then(response => {
         if (response.resultCode === 0) {
             dispatch(loginUser());
-        } 
+        } else {
+            dispatch(stopSubmit(
+                "login", {
+                    _error: "Login or password is invalid"
+                }
+            ));
+        }
     });
 };
 

@@ -7,3 +7,9 @@
 .red {
     color: red;
 }
+.commonError {
+    border: 1px solid red;
+    display: inline-block;
+    padding: 5px;
+    color: red;
+}
