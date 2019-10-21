@@ -1,9 +1,12 @@
-import React, {useState} from "react";
-import {profileAPI} from "../../../api/api";
+import React, {useState, useEffect} from "react";
 
 const ProfileStatusWithHooks = props => {
     let [editMode, setEditMode] = useState(false);
     let [currentStatusText, setCurrentStatusText] = useState(props.status);
+
+    useEffect(() => {
+        setCurrentStatusText(props.status);
+    }, [props.status]);
 
     const activateEditMode = () => {
         setEditMode(true);
