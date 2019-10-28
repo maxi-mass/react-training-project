@@ -1,5 +1,5 @@
-const ADD_MESSAGE = 'ADD-MESSAGE';
-const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE-NEW-MESSAGE-TEXT';
+const ADD_MESSAGE = 'messages/ADD-MESSAGE';
+const CHANGE_NEW_MESSAGE_TEXT = 'messages/CHANGE-NEW-MESSAGE-TEXT';
 
 let initialState = {
     dialogs: [

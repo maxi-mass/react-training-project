@@ -1,6 +1,6 @@
 import {loginUser} from "./auth-reducer";
 
-const SET_INITIALIZED = "SET-INITIALIZED";
+const SET_INITIALIZED = "app/SET-INITIALIZED";
 
 let initialState = {
     initialized: false
@@ -18,11 +18,10 @@ export const appReducer = (state = initialState, action) => {
     }
 };
 
-export const initialize = () => dispatch => {
+export const initialize = () => async dispatch => {
     let promise = dispatch(loginUser());
-    Promise.all([promise]).then(response => {
-        dispatch(setInitialized())
-    });
+    await Promise.all([promise]);
+    dispatch(setInitialized());
 };
 
 export const setInitialized = () => ({type: SET_INITIALIZED});

@@ -1,7 +1,7 @@
 import {authAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
-const SET_USER_DATA = "SET-USER-DATA";
+const SET_USER_DATA = "auth/SET-USER-DATA";
 
 let initialState = {
     userId: null,
@@ -31,26 +31,24 @@ export const loginUser = () => dispatch => {
     });
 };
 
-export const login = loginData => dispatch => {
-    authAPI.login(loginData).then(response => {
-        if (response.resultCode === 0) {
-            dispatch(loginUser());
-        } else {
-            dispatch(stopSubmit(
-                "login", {
-                    _error: "Login or password is invalid"
-                }
-            ));
-        }
-    });
+export const login = loginData => async dispatch => {
+    let response = await authAPI.login(loginData);
+    if (response.resultCode === 0) {
+        dispatch(loginUser());
+    } else {
+        dispatch(stopSubmit(
+            "login", {
+                _error: "Login or password is invalid"
+            }
+        ));
+    }
 };
 
-export const logout = () => dispatch => {
-    authAPI.logout().then(response => {
-        if (response.resultCode === 0) {
-            dispatch(setUserData(null, null, null, false));
-        }
-    });
+export const logout = () => async dispatch => {
+    let response = await authAPI.logout();
+    if (response.resultCode === 0) {
+        dispatch(setUserData(null, null, null, false));
+    }
 };
 
 export const setUserData = (userId, email, login, isAuth) => {

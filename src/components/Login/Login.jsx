@@ -1,15 +1,13 @@
 import React from "react";
-import { Field, reduxForm, reset } from 'redux-form';
+import {Field, reduxForm} from 'redux-form';
 import {connect} from "react-redux";
-import {login, logout} from "../../redux/auth-reducer";
+import {login} from "../../redux/auth-reducer";
 import {TextInput} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
-import {Redirect} from "react-router-dom";
-import formsConstrolsStyles from "../common/FormsControls/FormsControls.module.css";
+import formsControlsStyles from "../common/FormsControls/FormsControls.module.css";
 
-const LoginForm = (props) => {
-    console.log(props);
-    return <form onSubmit={props.handleSubmit}>
+const LoginForm = ({handleSubmit, error}) => {
+    return <form onSubmit={handleSubmit}>
                 <div>
                     <Field
                         placeholder={"Login"}
@@ -29,7 +27,7 @@ const LoginForm = (props) => {
                 <div>
                     <Field type="checkbox" name={"rememberMe"} component={"input"} /> remember me
                 </div>
-                {props.error && <div className={formsConstrolsStyles.commonError}>
+                {error && <div className={formsControlsStyles.commonError}>
                     ERROR
                 </div>}
                 <div>
